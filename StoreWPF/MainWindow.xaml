@@ -5,26 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        Title="MainWindow" Height="450" Width="1000" WindowStartupLocation="CenterScreen">
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="9*"></RowDefinition>
-            </Grid.RowDefinitions>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+                Grid.Row="0"
+                FontFamily="Segoe UI"
+                FontWeight="SemiBold"
+                FontSize="24"
+                Text="StepStore"
+                TextAlignment="Center"
+                Foreground="WhiteSmoke">
+            <TextBlock.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="DarkMagenta" Offset="0.0" />
+                        <GradientStop Color="MediumPurple" Offset="1.0" />
+                    </LinearGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
             <ListBox
             Grid.Column="0"
-            Grid.Row="1"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Disabled"
-            Name="productsListbox"
-            Background="LightGray"
-            >
+            Name="productsListbox">
+                
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"></WrapPanel>
@@ -38,11 +54,12 @@
                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                 <ColumnDefinition Width="2*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Height="100" Width="100" Source="{Binding ImagePath}"></Image>
+                            <Image Grid.Column="0" Height="100" Width="100" Source="{Binding ImagePath,UpdateSourceTrigger=PropertyChanged}"></Image>
                             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                                <TextBlock Width="150" Text="{Binding Name}" FontSize="24" FontFamily="Segoe UI" FontWeight="SemiBold"></TextBlock>
+                                <TextBlock Foreground="WhiteSmoke" Width="150" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontFamily="Segoe UI" FontWeight="SemiBold"></TextBlock>
+                                <TextBlock Foreground="WhiteSmoke" Width="150" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" FontSize="16" FontFamily="Segoe UI" FontWeight="SemiBold"></TextBlock>
                             </StackPanel>
-                            <Button Grid.Column="2" Margin="10" FontSize="16" FontFamily="Segoe UI" FontWeight="SemiBold" Width="100" Height="100">
+                            <Button Name="AddBtn" Grid.Column="2" Margin="10" FontSize="16" FontFamily="Segoe UI" FontWeight="SemiBold" Width="50" Height="50" Click="AddBtn_Click">
                                 <Image Source="Images\add.png"></Image>
                                 <Button.Resources>
                                     <Style TargetType="{x:Type Border}">
@@ -53,8 +70,121 @@
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="DarkMagenta" Offset="0.0" />
+                        <GradientStop Color="MediumPurple" Offset="1.0" />
+                    </LinearGradientBrush>
+                </ListBox.Background>
             </ListBox>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="6*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="DarkMagenta" Offset="0.0" />
+                        <GradientStop Color="MediumPurple" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Border Name="Border0" Grid.Row="0" BorderBrush="WhiteSmoke" BorderThickness="3" CornerRadius="10" Visibility="Hidden" ></Border>
+                <Border Name="Border1" Grid.Row="1" BorderBrush="WhiteSmoke" BorderThickness="3" CornerRadius="15" Visibility="Hidden" ></Border>
+                <Border Name="Border2" Grid.Row="2" BorderBrush="WhiteSmoke" BorderThickness="3" CornerRadius="15" Visibility="Hidden" ></Border>
+                <Border Name="Border3" Grid.Row="3" BorderBrush="WhiteSmoke" BorderThickness="3" CornerRadius="10" Visibility="Hidden" Margin="48"></Border>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image
+                Grid.Row="0"
+                Name="EditImage"
+                Margin="25"
+                Visibility="Hidden"></Image>
+
+                    <Button 
+                    Name="SelectPhotoBtn"
+                    Grid.Column="2" 
+                    Margin="10" 
+                    FontSize="16" 
+                    FontFamily="Segoe UI"
+                    FontWeight="SemiBold"
+                    Width="50" 
+                    Height="50" 
+                    Visibility="Hidden"
+                    Click="SelectPhotoBtn_Click">
+                        <Border Grid.Column="2" BorderBrush="DarkMagenta" BorderThickness="3" CornerRadius="10" >
+                            <Image
+                        Name="SelectImg"
+                        Visibility="Hidden"
+                        Source="Images\selectphoto.png"></Image>
+                        </Border>
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+                <TextBox
+                Grid.Row="1"
+                Name="EditNameTxtb"
+                Margin="5"
+                FontFamily="Segoe UI"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Visibility="Hidden"
+                Foreground="WhiteSmoke"
+                Background="DarkMagenta">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBox
+                Grid.Row="2"
+                Name="EditPriceTxtb"
+                Margin="5"
+                FontFamily="Segoe UI"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Visibility="Hidden"
+                Foreground="WhiteSmoke"
+                Background="DarkMagenta">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button
+                Grid.Row="3"
+                Name="SaveBtn"
+                Margin="50"
+                Background="DarkMagenta"
+                Foreground="WhiteSmoke"
+                Content="Save"
+                FontFamily="Segoe UI"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Visibility="Hidden"
+                Click="SaveBtn_Click">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+
         </Grid>
 
     </Grid>
+
 </Window>

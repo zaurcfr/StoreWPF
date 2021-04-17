@@ -104,7 +104,22 @@
     <Resource Include="Images\fusetea.png" />
     <Resource Include="Images\pepsi.png" />
     <Resource Include="Images\redbull.png" />
-    <Resource Include="Images\sprite.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\selectphoto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cocacolazero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\7up.png" />
+    <Resource Include="Images\mirinda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\heineken.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
